@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My Balance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+
+        <h2 class="text-center mb-4">My Balance</h2>
+
+        <div class="card text-center p-4">
+
+            <h3 id="balanceAmount">$0</h3>
+
+            <button class="btn btn-success mt-3" id="addBalance">Add $50</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const user = JSON.parse(localStorage.getItem("loggedUser"));
+
+        if (!user) {
+
+            alert("Login first");
+
+            location.href = "index.html";
+
+        }
+
+        document.getElementById("balanceAmount").innerText = "$" + user.balance;
+
+        document.getElementById("addBalance").onclick = () => {
+
+            user.balance += 50;
+
+            localStorage.setItem("loggedUser", JSON.stringify(user));
+
+            let users = JSON.parse(localStorage.getItem("users"));
+
+            let index = users.findIndex(u => u.email === user.email);
+
+            users[index] = user;
+
+            localStorage.setItem("users", JSON.stringify(users));
+
+            location.reload();
+
+        }
+
+    </script>
+
+</body>
+
+</html>

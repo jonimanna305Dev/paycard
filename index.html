@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Buy Plan System</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+
+      <a class="navbar-brand">MySite</a>
+
+      <div class="d-flex align-items-center gap-3">
+
+        <span class="text-white">Balance: <b id="userBalance">$0</b></span>
+
+        <button class="btn btn-success btn-sm" id="loginBtn">Login</button>
+
+        <div id="navArea" class="dropdown d-none">
+
+          <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2"
+            data-bs-toggle="dropdown">
+
+            <img id="navUserImage" width="35" height="35" class="rounded-circle">
+
+            <span id="navUserName"></span>
+
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+
+            <li><a class="dropdown-item" href="#" id="openBalance">My Balance</a></li>
+
+            <li class="dropdown-item">Plan: <b id="navPlan">None</b></li>
+
+            <li class="dropdown-item">Time: <span id="navTimer">0</span></li>
+
+            <li>
+              <hr>
+            </li>
+
+            <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Logout</a></li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
+
+
+  <!-- BLOG CONTENT -->
+
+  <div class="container mt-5 d-none" id="content">
+
+    <h2 class="text-center mb-4">Latest Blogs</h2>
+
+    <div class="row g-4">
+
+      <div class="col-md-4 blog">
+        <div class="card">
+          <img src="https://picsum.photos/400/200?1">
+          <div class="card-body">
+            <h5>Web Development</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 blog">
+        <div class="card">
+          <img src="https://picsum.photos/400/200?2">
+          <div class="card-body">
+            <h5>Laravel Guide</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 blog">
+        <div class="card">
+          <img src="https://picsum.photos/400/200?3">
+          <div class="card-body">
+            <h5>Vue JS</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 blog">
+        <div class="card">
+          <img src="https://picsum.photos/400/200?4">
+          <div class="card-body">
+            <h5>API</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 blog">
+        <div class="card">
+          <img src="https://picsum.photos/400/200?5">
+          <div class="card-body">
+            <h5>JavaScript</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 blog">
+        <div class="card">
+          <img src="https://picsum.photos/400/200?6">
+          <div class="card-body">
+            <h5>Bootstrap</h5>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- PLANS -->
+
+  <div class="container mt-5 mb-5">
+
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h3>GO</h3>
+            <p>Price $5</p>
+            <button class="btn btn-success buyPlanBtn" data-plan="GO" data-price="5">Buy Plan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h3>PRO</h3>
+            <p>Price $10</p>
+            <button class="btn btn-primary buyPlanBtn" data-plan="PRO" data-price="10">Buy Plan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h3>PRO PLUS</h3>
+            <p>Price $15</p>
+            <button class="btn btn-warning buyPlanBtn" data-plan="PRO PLUS" data-price="15">Buy Plan</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- BALANCE MODAL -->
+
+  <div class="modal fade" id="balanceModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5>My Balance</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body text-center">
+
+          <h3 id="balanceAmount">$0</h3>
+
+          <button class="btn btn-success mt-3" id="addBalance">Add $50</button>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- REGISTER MODAL -->
+
+  <div class="modal fade" id="registerModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5>Register</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <form id="registerForm">
+
+            <input type="text" id="regName" class="form-control mb-3" placeholder="Name" required>
+
+            <input type="email" id="regEmail" class="form-control mb-3" placeholder="Email" required>
+
+            <input type="password" id="regPassword" class="form-control mb-3" placeholder="Password" required>
+
+            <input type="text" id="regImage" class="form-control mb-3" placeholder="Image URL">
+
+            <button class="btn btn-success w-100">Register</button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- LOGIN MODAL -->
+
+  <div class="modal fade" id="loginModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5>Login</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <form id="loginForm">
+
+            <input type="email" id="email" class="form-control mb-3" placeholder="Email" required>
+
+            <input type="password" id="password" class="form-control mb-3" placeholder="Password" required>
+
+            <button class="btn btn-primary w-100">Login</button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const loginBtn = document.getElementById("loginBtn");
+    const navArea = document.getElementById("navArea");
+    const navUserName = document.getElementById("navUserName");
+    const navUserImage = document.getElementById("navUserImage");
+    const navPlan = document.getElementById("navPlan");
+    const navTimer = document.getElementById("navTimer");
+    const userBalanceEl = document.getElementById("userBalance");
+    const content = document.getElementById("content");
+
+    function updateBalance(balance) {
+      userBalanceEl.innerText = "$" + balance;
+    }
+
+
+    loginBtn.onclick = () => {
+      new bootstrap.Modal(document.getElementById("loginModal")).show();
+    }
+
+
+    registerForm.addEventListener("submit", e => {
+
+      e.preventDefault();
+
+      const name = regName.value;
+      const email = regEmail.value;
+      const password = btoa(regPassword.value);
+      const img = regImage.value || "https://i.pravatar.cc/100";
+
+      if (users.find(u => u.email === email)) {
+        alert("User already exists");
+        return;
+      }
+
+      const user = {
+        name,
+        email,
+        password,
+        img,
+        balance: 100,
+        plan: null,
+        startTime: null
+      }
+
+      users.push(user);
+
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("loggedUser", JSON.stringify(user));
+
+      location.reload();
+
+    });
+
+
+    loginForm.addEventListener("submit", e => {
+
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = btoa(document.getElementById("password").value);
+
+      let user = users.find(u => u.email === email && u.password === password);
+
+      if (!user) {
+
+        alert("User not found! Please register");
+
+        new bootstrap.Modal(document.getElementById("registerModal")).show();
+
+        return;
+
+      }
+
+      localStorage.setItem("loggedUser", JSON.stringify(user));
+
+      location.reload();
+
+    });
+
+
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+
+    if (loggedUser) {
+
+      navArea.classList.remove("d-none");
+      loginBtn.style.display = "none";
+
+      navUserName.innerText = loggedUser.name;
+      navUserImage.src = loggedUser.img;
+
+      updateBalance(loggedUser.balance);
+
+      content.classList.remove("d-none");
+
+      if (loggedUser.plan) applyPlan();
+
+    }
+
+
+    logoutBtn.onclick = () => {
+
+      localStorage.removeItem("loggedUser");
+
+      location.reload();
+
+    }
+
+
+
+    document.getElementById("openBalance").onclick = () => {
+
+      const user = JSON.parse(localStorage.getItem("loggedUser"));
+
+      document.getElementById("balanceAmount").innerText = "$" + user.balance;
+
+      new bootstrap.Modal(document.getElementById("balanceModal")).show();
+
+    }
+
+
+    document.getElementById("addBalance").onclick = () => {
+
+      let user = JSON.parse(localStorage.getItem("loggedUser"));
+
+      user.balance += 50;
+
+      localStorage.setItem("loggedUser", JSON.stringify(user));
+
+      let index = users.findIndex(u => u.email === user.email);
+
+      users[index] = user;
+
+      localStorage.setItem("users", JSON.stringify(users));
+
+      location.reload();
+
+    }
+
+
+
+    document.querySelectorAll(".buyPlanBtn").forEach(btn => {
+
+      btn.onclick = () => {
+
+        let user = JSON.parse(localStorage.getItem("loggedUser"));
+
+        if (!user) {
+
+          new bootstrap.Modal(document.getElementById("loginModal")).show();
+
+          return;
+
+        }
+
+        let price = parseInt(btn.dataset.price);
+
+        if (user.balance < price) {
+
+          alert("Not enough balance");
+
+          return;
+
+        }
+
+        user.plan = btn.dataset.plan;
+        user.balance -= price;
+        user.startTime = new Date().getTime();
+
+        localStorage.setItem("loggedUser", JSON.stringify(user));
+
+        let index = users.findIndex(u => u.email === user.email);
+
+        users[index] = user;
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+        updateBalance(user.balance);
+
+        applyPlan();
+
+      }
+
+    });
+
+
+    function applyPlan() {
+
+      let user = JSON.parse(localStorage.getItem("loggedUser"));
+
+      navPlan.innerText = user.plan;
+
+      let limit = user.plan === "GO" ? 2 : user.plan === "PRO" ? 4 : 6;
+
+      document.querySelectorAll(".blog").forEach((blog, i) => {
+
+        blog.style.display = i < limit ? "block" : "none";
+
+      });
+
+      startTimer();
+
+    }
+
+
+    function startTimer() {
+
+      let user = JSON.parse(localStorage.getItem("loggedUser"));
+
+      let end = user.startTime + 120000;
+
+      clearInterval(window.timer);
+
+      window.timer = setInterval(() => {
+
+        let now = new Date().getTime();
+
+        let remain = end - now;
+
+        if (remain <= 0) {
+
+          navTimer.innerText = "Expired";
+
+          clearInterval(window.timer);
+
+          localStorage.removeItem("loggedUser");
+
+          alert("Plan expired!");
+
+          location.reload();
+
+          return;
+
+        }
+
+        navTimer.innerText = Math.floor(remain / 1000) + " sec";
+
+      }, 1000);
+
+    }
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
